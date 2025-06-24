@@ -1,0 +1,132 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}SastaStore{% endblock %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Include Bootstrap CSS in the <head> section -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!-- Include Bootstrap JS and jQuery just before the closing </body> tag -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <style>
+    .navbar .nav-item .nav-link {
+      color: black !important;
+    }
+
+    .nav-link {
+      color: black !important;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'index' %}">
+        <img src="{% static 'myshop/img/Icon.png' %}" alt="SastaStore" height="40">
+      </a>
+      <a class="nav-link" href="{% url 'about' %}">About</a>
+
+      <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto flex-column flex-lg-row">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'index' %}">Home</a>
+          </li>
+  
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'product_list' %}">Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'cart' %}">
+              Cart <span class="badge bg-danger">{{ cart_item_count }}</span>
+            </a>
+          </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ user.username }}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+              {% if user.is_superuser %}
+                <li><a class="dropdown-item" href="{% url 'add_product' %}">Add Product</a></li>
+              {% endif %}
+              <li><a class="dropdown-item" href="{% url 'order_history' %}">My Orders</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+          </li>
+          {% endif %}
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'register' %}">Register</a>
+          </li>
+          {% endif %}
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+<div class="container py-4">
+  {% block content %}{% endblock %}
+</div>
+
+<footer class="footer bg-dark text-white mt-5 pt-4 pb-3">
+  <div class="container">
+    <div class="row">
+      <div class="col-6 col-md-3 mb-3">
+        <h5>About</h5>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-white">Company Info</a></li>
+          <li><a href="#" class="text-white">Careers</a></li>
+          <li><a href="#" class="text-white">Press</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md-3 mb-3">
+        <h5>Help</h5>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-white">Payments</a></li>
+          <li><a href="#" class="text-white">Shipping</a></li>
+          <li><a href="#" class="text-white">Cancellation</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md-3 mb-3">
+        <h5>Policy</h5>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-white">Return Policy</a></li>
+          <li><a href="#" class="text-white">Terms of Use</a></li>
+          <li><a href="#" class="text-white">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md-3 mb-3">
+        <h5>Contact</h5>
+        <p>Email: support@example.com</p>
+        <p>Phone: +91 234 567 890</p>
+      </div>
+    </div>
+    <hr class="border-light" />
+    <div class="text-center">
+      <p class="mb-0">&copy; 2025 Rohit Joshi. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

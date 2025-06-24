@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load order_extras %}
+
+{% block content %}
+<div class="container my-5">
+    <h2>My Orders</h2>
+    {% if orders %}
+    <div class="list-group">
+        {% for order in orders %}
+        <div class="list-group-item">
+            <div class="d-flex justify-content-between">
+                <h5>Order #{{ order.id }}</h5>
+                <small>{{ order.created_at|date:"M d, Y - H:i" }}</small>
+            </div>
+            <ul class="mt-2">
+                {% for item in order.items.all %}
+                    <li>{{ item.quantity }} x {{ item.product.name }} – ₹{{ item.product.price|multiply:item.quantity }}</li>
+                {% endfor %}
+            </ul>
+            <p class="mt-2"><strong>Total: ₹{{ order|get_total }}</strong></p>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>You have not placed any orders yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

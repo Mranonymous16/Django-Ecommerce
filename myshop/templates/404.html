@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .error-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 70vh;
+        text-align: center;
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    .error-icon {
+        font-size: 6rem;
+        color: #dc3545;
+        animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn-home {
+        margin-top: 20px;
+    }
+</style>
+
+<div class="error-container">
+    <div class="error-icon">🚫</div>
+    <h1 class="display-4 mt-3">Oops! 404 Not Found</h1>
+    <p class="lead">The page you're looking for doesn't exist or has been moved.</p>
+    <a href="{% url 'index' %}" class="btn btn-primary btn-home">
+        <i class="bi bi-house-door"></i> Go to Homepage
+    </a>
+</div>
+{% endblock %}

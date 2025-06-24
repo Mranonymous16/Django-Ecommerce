@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}Order Confirmed{% endblock %}
+{% load order_extras %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="card p-4 shadow-sm">
+        <h1 class="text-success">Thank you for your order!</h1>
+        <p class="lead">Your order <strong>#{{ order.id }}</strong> has been placed successfully.</p>
+
+        <hr>
+
+        <h4 class="mt-4">Items:</h4>
+        <ul class="list-group mb-3">
+            {% for item in order.items.all %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>{{ item.product.name }}</strong><br>
+                    Quantity: {{ item.quantity }}<br>
+                    Price: ₹{{ item.product.price }}
+                </div>
+                <span class="badge bg-primary rounded-pill">
+                    ₹{{ item.product.price|multiply:item.quantity }}
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <p class="h5 text-end"><strong>Total: ₹{{ order|get_total }}</strong></p>
+
+        <div class="text-end mt-4">
+            <a href="{% url 'product_list' %}" class="btn btn-primary">Continue Shopping</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% comment %} {% extends 'base.html' %}
+{% block title %}Order Confirmed{% endblock %}
+{% block content %}
+{% comment %} <h1>Thank you for your order!</h1>
+<p>Your order has been placed successfully.</p> end
+
+{% load order_extras %}
+
+<h1>Thank you for your order!</h1>
+<p>Order #{{ order.id }} placed successfully.</p>
+
+<td>${{ item.product.price|multiply:item.quantity }}</td>
+
+<h4>Items:</h4>
+<ul>
+    {% for item in order.items.all %}
+        <li>{{ item.quantity }} x {{ item.product.name }} - ₹{{ item.total }}</li>
+    {% endfor %}
+</ul>
+
+<p><strong>Total: ₹{{ order|order_total }}</strong></p>
+
+<a href="/" class="btn btn-primary">Continue Shopping</a>
+{% endblock %} {% endcomment %}

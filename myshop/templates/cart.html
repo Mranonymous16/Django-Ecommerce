@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+{% block title %}Cart{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Your Cart</h1>
+
+{% if cart_items %}
+<div class="cart-container">
+  {% for item in cart_items %}
+  <div class="cart-card">
+    <div class="cart-image">
+      <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+    </div>
+    <div class="cart-details">
+      {% comment %} <h5>{{ item.product.name }}</h5>
+      <p>Size: {{ item.size|default:"L" }}</p> {% endcomment %}
+      <p class="price">
+        {% comment %} <span class="original">₹{{ item.product.original_price }}</span> {% endcomment %}
+        <span class="discounted">₹{{ item.product.price }}</span>
+        {% comment %} <span class="offer">({{ item.product.discount }}% Off)</span> {% endcomment %}
+      </p>
+      <div class="quantity-controls">
+        <form action="{% url 'update_cart' item.id 'decrease' %}" method="post">
+          {% csrf_token %}
+          <button type="submit">−</button>
+        </form>
+        <span>{{ item.quantity }}</span>
+        <form action="{% url 'update_cart' item.id 'increase' %}" method="post">
+          {% csrf_token %}
+          <button type="submit">+</button>
+        </form>
+      </div>
+      <div class="actions">
+        <form action="{% url 'remove_from_cart' item.id %}" method="post">
+          {% csrf_token %}
+          <button class="remove-btn">Remove</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  <div class="place-order">
+    <h4>Total: ₹{{ cart_total }}</h4>
+    <form action="{% url 'clear_cart' %}" method="post" style="display:inline;">
+      {% csrf_token %}
+      <button class="btn-clear">Clear Cart</button>
+    </form>
+    <a href="{% url 'checkout' %}" class="btn-order">PLACE ORDER</a>
+  </div>
+</div>
+{% else %}
+<p>Your cart is empty.</p>
+{% endif %}
+
+<style>
+.cart-container {
+  max-width: 800px;
+  margin: auto;
+}
+.cart-card {
+  display: flex;
+  border-bottom: 1px solid #eee;
+  padding: 16px 0;
+}
+.cart-image img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin-right: 16px;
+}
+.cart-details {
+  flex: 1;
+}
+.price .original {
+  text-decoration: line-through;
+  color: gray;
+  margin-right: 8px;
+}
+.price .discounted {
+  color: green;
+  font-weight: bold;
+}
+.price .offer {
+  color: #388e3c;
+  font-size: 14px;
+}
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+.quantity-controls button {
+  padding: 4px 10px;
+}
+.actions {
+  margin-top: 10px;
+}
+.remove-btn {
+  background: none;
+  border: none;
+  color: red;
+  cursor: pointer;
+}
+.place-order {
+  text-align: right;
+  margin-top: 20px;
+}
+.btn-clear, .btn-order {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+.btn-clear {
+  background-color: #f44336;
+  color: white;
+}
+.btn-order {
+  background-color: #ff5722;
+  color: white;
+  font-weight: bold;
+  margin-left: 10px;
+}
+</style>
+{% endblock %}
+
+
+
+{% comment %} {% extends 'base.html' %}
+{% block title %}Cart{% endblock %}
+
+{% block content %}
+<h1>Your Cart</h1>
+
+{% if cart_items %}
+<table class="table">
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Qty</th>
+      <th>Price</th>
+      <th>Total</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in cart_items %}
+    <tr>
+      <td>{{ item.product.name }}</td>
+      <td>
+        <form action="{% url 'update_cart' item.id 'decrease' %}" method="post" style="display:inline;">
+          {% csrf_token %}
+          <button class="btn btn-sm btn-outline-secondary">-</button>
+        </form>
+        <span>{{ item.quantity }}</span>
+        <form action="{% url 'update_cart' item.id 'increase' %}" method="post" style="display:inline;">
+          {% csrf_token %}
+          <button class="btn btn-sm btn-outline-secondary">+</button>
+        </form>
+      </td>
+      <td>${{ item.product.price }}</td>
+      <td>${{ item.total }}</td>
+      <td>
+        <form action="{% url 'remove_from_cart' item.id %}" method="post" style="display:inline;">
+          {% csrf_token %}
+          <button class="btn btn-sm btn-outline-danger">🗑️</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h4>Total: ${{ cart_total }}</h4>
+<form action="{% url 'clear_cart' %}" method="post" style="display:inline;">
+  {% csrf_token %}
+  <button class="btn btn-danger">Clear Cart</button>
+</form>
+<a href="{% url 'checkout' %}" class="btn btn-success">Checkout</a>
+
+{% else %}
+<p>Your cart is empty.</p>
+{% endif %}
+{% endblock %} {% endcomment %}
+
+
+
+{% comment %} {% extends 'base.html' %}
+{% block title %}Cart{% endblock %}
+{% block content %}
+<h1>Your Cart</h1>
+{% if cart_items %}
+<table class="table">
+  <thead><tr><th>Product</th><th>Qty</th><th>Price</th><th>Total</th></tr></thead>
+  <tbody>
+    {% for item in cart_items %}
+    <tr>
+      <td>{{ item.product.name }}</td>
+      <td>{{ item.quantity }}</td>
+      <td>${{ item.product.price }}</td>
+      <td>${{ item.total }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<h4>Total: ${{ cart_total }}</h4>
+<a href="{% url 'checkout' %}" class="btn btn-success">Checkout</a>
+{% else %}
+<p>Your cart is empty.</p>
+{% endif %}
+{% endblock %} {% endcomment %}

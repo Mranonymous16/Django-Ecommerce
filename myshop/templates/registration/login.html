@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% comment %} {% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<h2>Login</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">Login</button>
+</form>
+<p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+{% endblock %} {% endcomment %}
+
+
+{% comment %} {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'myshop/css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+</head>
+<body>
+    <section class="side">
+        <img src="{% static 'myshop/img/LoginForm.png' %}" alt="Login Image">
+    </section>
+
+    <section class="main">
+        <div class="login-container">
+            <p class="title">LOGIN</p>
+            <div class="separator"></div>
+            <p class="welcome-message">Please, provide login credential to proceed and have access to all our services</p>
+
+            <form method="post" class="login-form">
+                {% csrf_token %}
+                <div class="form-control">
+                    {{ form.username }}
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="form-control">
+                    {{ form.password }}
+                    <i class="fas fa-lock"></i>
+                </div>
+                <button type="submit" class="submit">LOGIN</button>
+            </form>
+
+            <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+        </div>
+    </section>
+</body>
+</html>
+{% endcomment %}
+
+{% comment %} {% extends 'base.html' %} 
+{% load static %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'myshop/css/css1.css' %}">
+
+<div class="login-wrapper">
+    <section class="side">
+        <img src="{% static 'myshop/img/LoginForm.png' %}" alt="Login image">
+    </section>
+
+    <section class="main">
+        <div class="login-container">
+            <p class="title">LOGIN</p>
+            <div class="separator"></div>
+            <p class="welcome-message">Please, provide login credential to proceed</p>
+            <form method="post" class="login-form">
+                {% csrf_token %}
+                <div class="form-control">
+                    {{ form.username }}
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="form-control">
+                    {{ form.password }}
+                    <i class="fas fa-lock"></i>
+                </div>
+
+                <button class="submit" type="submit">LOGIN</button>
+            </form> 
+
+            <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+
+{% extends 'base.html' %} {% endcomment %}
+{% load static %}
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'myshop/css/css1.css' %}">
+
+<div class="login-wrapper">
+    <section class="side">
+        <img src="{% static 'myshop/img/RegisterForm.png' %}" alt="Register image">
+    </section>
+
+    <section class="main">
+        <div class="login-container">
+            <p class="title">REGISTER</p>
+            <div class="separator"></div>
+            <p class="welcome-message">Create your account to get started</p>
+            
+            <form method="post" class="login-form">
+                {% csrf_token %}
+
+                <div class="form-control">
+                    {{ form.username }}
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="form-control">
+                    {{ form.email }}
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="form-control">
+                    {{ form.password1 }}
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="form-control">
+                    {{ form.password2 }}
+                    <i class="fas fa-lock"></i>
+                </div>
+
+                <button class="submit" type="submit">REGISTER</button>
+            </form>
+
+            <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+        </div>
+    </section>
+</div>
+{% endblock %}

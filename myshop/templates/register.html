@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% comment %} {% block title %}Register{% endblock %}
+{% block content %}
+<h2>Register</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-success">Register</button>
+</form>
+{% endblock %}  {% endcomment %}
+
+
+{% load static %}
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+<style>
+  .register-container {
+    max-width: 450px;
+    margin: 50px auto;
+    padding: 30px 40px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    font-family: 'Montserrat', sans-serif;
+  }
+  .register-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: bold;
+  }
+  .form-control {
+    border-radius: 8px;
+  }
+  .btn-success {
+    border-radius: 8px;
+    font-weight: 500;
+  }
+</style>
+
+<div class="register-container">
+  <h2>Sign Up</h2>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="mb-3">
+        <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.help_text %}
+          <div class="form-text text-muted">{{ field.help_text|safe }}</div>
+        {% endif %}
+        {% if field.errors %}
+          <div class="text-danger small">{{ field.errors|striptags }}</div>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-success w-100">Register</button>
+  </form>
+  <p class="text-center mt-3">
+    Already have an account?
+    <a href="{% url 'login' %}">Login here</a>
+  </p>
+</div>
+{% endblock %}
+
