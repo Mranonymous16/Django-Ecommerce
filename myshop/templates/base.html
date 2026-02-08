@@ -83,7 +83,7 @@
     </div>
   </nav>
 
-<div class="container py-4">
+<div class="container1 py-4">
   {% block content %}{% endblock %}
 </div>
 
@@ -117,12 +117,11 @@
       <div class="col-6 col-md-3 mb-3">
         <h5>Contact</h5>
         <p>Email: support@example.com</p>
-        <p>Phone: +91 234 567 890</p>
       </div>
     </div>
     <hr class="border-light" />
     <div class="text-center">
-      <p class="mb-0">&copy; 2025 Rohit Joshi. All rights reserved.</p>
+      <p class="mb-0">&copy; {% now "Y" %} Rohit Joshi. All rights reserved.</p>
     </div>
   </div>
 </footer>

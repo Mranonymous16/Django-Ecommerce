@@ -9,10 +9,9 @@
   <button type="submit" class="btn btn-primary">Login</button>
 </form>
 <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
-{% endblock %} {% endcomment %}
+{% endblock %} 
 
-
-{% comment %} {% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,7 +53,7 @@
 </html>
 {% endcomment %}
 
-{% comment %} {% extends 'base.html' %} 
+
 {% load static %}
 {% block title %}Login{% endblock %}
 
@@ -93,8 +92,8 @@
 </div>
 {% endblock %}
 
-
-{% extends 'base.html' %} {% endcomment %}
+{% comment %}
+{% extends 'base.html' %} 
 {% load static %}
 {% block title %}Register{% endblock %}
 
@@ -142,3 +141,4 @@
     </section>
 </div>
 {% endblock %}
+{% endcomment %}

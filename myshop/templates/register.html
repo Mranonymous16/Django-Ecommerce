@@ -10,7 +10,7 @@
 {% endblock %}  {% endcomment %}
 
 
-{% load static %}
+{% comment %} {% load static %}
 {% block title %}Register{% endblock %}
 
 {% block content %}
@@ -64,5 +64,117 @@
     <a href="{% url 'login' %}">Login here</a>
   </p>
 </div>
-{% endblock %}
+{% endblock %} {% endcomment %}
 
+
+{% comment %} {% load static %}
+{% block title %}Register{% endblock %}
+
+{% block content %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'myshop/css/style.css' %}">
+
+  <div class="login-wrapper">
+      <section class="side">
+          <img src="{% static 'myshop/img/RegisterForm.png' %}" alt="Register image">
+      </section>
+
+      <section class="main">
+          <div class="login-container">
+              <p class="title">REGISTER</p>
+              <div class="separator"></div>
+              <p class="welcome-message">Create your account to get started</p>
+              
+              <form method="post" class="login-form">
+                  {% csrf_token %}
+
+                  <!-- Username -->
+                  <div class="form-control">
+                      {{ form.username }}
+                      <i class="fas fa-user"></i>
+                  </div>
+
+                  <!-- Email (only works if your form includes it) -->
+                  {% comment %} {% if form.email %}
+                  <div class="form-control">
+                      {{ form.email }}
+                      <i class="fas fa-envelope"></i>
+                  </div>
+                  {% endif %} 
+                  <div class="form-control">
+                    {{ form.email }}
+                    <i class="fas fa-envelope"></i>
+                  </div>
+
+                  <!-- Password -->
+                  <div class="form-control">
+                      {{ form.password1 }}
+                      <i class="fas fa-lock"></i>
+                  </div>
+
+                  <!-- Confirm Password -->
+                  <div class="form-control">
+                      {{ form.password2 }}
+                      <i class="fas fa-lock"></i>
+                  </div>
+
+                  <button class="submit" type="submit">REGISTER</button>
+              </form>
+
+              <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+          </div>
+      </section>
+  </div>
+{% endblock %} {% endcomment %}
+
+{% load static %}
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'myshop/css/style.css' %}">
+
+<div class="login-wrapper">
+    <section class="side">
+        <img src="{% static 'myshop/img/RegisterForm.jpg' %}" alt="Register image">
+    </section>
+
+    <section class="main">
+        <div class="login-container">
+            <p class="title">REGISTER</p>
+            <div class="separator"></div>
+            <p class="welcome-message">Create your account to get started</p>
+
+            <form method="post" class="login-form">
+                {% csrf_token %}
+
+                <div class="form-control">
+                    {{ form.username }}
+                    <i class="fas fa-user"></i>
+                </div>
+
+                <div class="form-control">
+                    {{ form.email }}
+                    <i class="fas fa-envelope"></i>
+                </div>
+
+                <div class="form-control">
+                    {{ form.password1 }}
+                    <i class="fas fa-lock"></i>
+                </div>
+
+                <div class="form-control">
+                    {{ form.password2 }}
+                    <i class="fas fa-lock"></i>
+                </div>
+
+                <button class="submit" type="submit">REGISTER</button>
+            </form>
+
+            <p style="text-align:center;">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+        </div>
+    </section>
+</div>
+{% endblock %}

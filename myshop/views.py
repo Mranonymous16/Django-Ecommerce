@@ -6,6 +6,8 @@ from django.contrib.auth import login
 from .forms import ProductForm
 from django.contrib.auth.views import LoginView
 from .forms import CustomLoginForm
+from django.shortcuts import render, redirect
+from .forms import CustomUserCreationForm
 
 # from .helpers import Helpers
 
@@ -190,16 +192,16 @@ def order_history(request):
     user_orders = Order.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'order_history.html', {'orders': user_orders})
 
-def user_register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('product_list')
-    else:
-        form = UserCreationForm()
-    return render(request, 'register.html', {'form': form})
+# def user_register(request):
+#     if request.method == 'POST':
+#         form = UserCreationForm(request.POST)
+#         if form.is_valid():
+#             user = form.save()
+#             login(request, user)
+#             return redirect('product_list')
+#     else:
+#         form = UserCreationForm()
+#     return render(request, 'register.html', {'form': form})
 
 @login_required
 def admin_dashboard(request):
@@ -259,3 +261,13 @@ def add_product(request):
         form = ProductForm()
     
     return render(request, 'add_product.html', {'form': form})
+
+def register(request):
+    if request.method == "POST":
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("login")  # go to login page
+    else:
+        form = CustomUserCreationForm()
+    return render(request, "register.html", {"form": form})
